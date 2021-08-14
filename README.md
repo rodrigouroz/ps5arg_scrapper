@@ -1,14 +1,6 @@
-# Housing scrapper
+# PS5 scrapper
 
-In my pursue of a new place to live, I was tired of having to remember which properties I've already checked, and also having to remember to go to the listings sites.
-
-When I started bookmarking the queries I did in every listing site I realized what I was doing could be easily automated, and voilà!
-
-Meet housing scrapper, an app that queries the listings sites for you and notifies you over Telegram when a new property shows up. It remembers the one it notified you about so you won't receive the same property again.
-
-This initial version is aimed at the Argentinean market, therefore there are only providers that list housing in Argentina.
-
-I'd love to receive comments, bugs, ideas, suggestion (I don't use Python daily, please help me be more pythonic if you'd like to), etc. Hit me at rodrigouroz@gmail.com or file an issue in the repo.
+Based on the idea of the [Housing scrapper](https://github.com/rodrigouroz/housing_scrapper) I developed a script to check availability of a PS5 in stores in Argentina (it's sold out everywhere)
 
 ## Instalation
 This was tested with Python 3.8.

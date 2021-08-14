@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
 import logging
+from bs4 import BeautifulSoup
 import yaml
-import sys
 from lib.notifier import Notifier
-from providers.processor import process_properties
+import requests
 
 # logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -19,13 +19,17 @@ if 'disable_ssl' in cfg:
 
 notifier = Notifier.get_instance(cfg['notifier'], disable_ssl)
 
-new_properties = []
-for provider_name, provider_data in cfg['providers'].items():
-    try:
-        logging.info(f"Processing provider {provider_name}")
-        new_properties += process_properties(provider_name, provider_data)
-    except Exception as e:
-        logging.error(f"Error processing provider {provider_name}.\n{str(e)}")
+# get page
+#ps5_availability_page = requests.get('https://ps5arg-availability.vercel.app/')
+ps5_availability_page = requests.get('http://localhost:3000')
+page_content = BeautifulSoup(ps5_availability_page.content, 'lxml')
+stores = page_content.select('a p')
 
-if len(new_properties) > 0:
-    notifier.notify(new_properties)
+check = False
+for store in stores:
+    if store.get_text() != 'No disponible':
+        check = True
+        break
+
+if check:
+    notifier.notify('Hay que verificar al menos una tienda: https://ps5arg-availability.vercel.app')
