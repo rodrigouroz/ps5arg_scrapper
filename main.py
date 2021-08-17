@@ -20,8 +20,7 @@ if 'disable_ssl' in cfg:
 notifier = Notifier.get_instance(cfg['notifier'], disable_ssl)
 
 # get page
-#ps5_availability_page = requests.get('https://ps5arg-availability.vercel.app/')
-ps5_availability_page = requests.get('http://localhost:3000')
+ps5_availability_page = requests.get('https://ps5arg-availability.vercel.app/')
 page_content = BeautifulSoup(ps5_availability_page.content, 'lxml')
 stores = page_content.select('a p')
 
@@ -33,3 +32,5 @@ for store in stores:
 
 if check:
     notifier.notify('Hay que verificar al menos una tienda: https://ps5arg-availability.vercel.app')
+else:
+    logging.info('Nada que notificar')
